@@ -1,0 +1,38 @@
+{% include 'components/header.twig' %}
+{% include 'components/adminMenu.twig' %}
+<div class="container">
+    <h3>Users list</h3>
+    <div class="content">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Username</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Number</th>
+                <th>Floor</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in function.getUsers %}
+                <tr>
+                    <th>{{ user.username }}</th>
+                    <th>{{ user.phone }}</th>
+                    <th>{{ user.email }}</th>
+                    <th>{{ user.number }}</th>
+                    <th>{{ user.floor }}</th>
+                    <td>
+                        {% if user.status == 0 %}
+                        <a href="{{ path_for('activeUser') }}/{{ user.id }}" class="btn btn-success">Active</a>
+                        {% endif %}
+                        <a href="{{ path_for('getUser') }}/{{ user.id }}" class="btn btn-primary">Info</a>
+                        <a href="{{ path_for('deleteUser') }}/{{ user.id }}" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% include 'components/footer.twig' %}

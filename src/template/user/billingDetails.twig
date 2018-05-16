@@ -1,0 +1,101 @@
+{% include 'components/header.twig' %}
+{% include 'components/menu.twig' %}
+<div class="container">
+    <h3>Billing number {{ billing_number }}</h3>
+    <div class="content">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Utility</th>
+                <th>Cost</th>
+                <th>Used</th>
+                <th>Payment</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Cold water</th>
+                    <td>{{ function.getPrice().cold_water_price }} lei/m&sup3;</td>
+                    <td>{{ function.getBillingDetails(billing_number).cold_water_amount }} m&sup3;</td>
+                    <td>{{ function.getBillingDetails(billing_number).cold_water }} lei</td>
+                </tr>
+                <tr>
+                    <th>Hot water</th>
+                    <td>{{ function.getPrice().hot_water_price }} lei/m&sup3;</td>
+                    <td>{{ function.getBillingDetails(billing_number).hot_water_amount }} m&sup3;</td>
+                    <td>{{ function.getBillingDetails(billing_number).hot_water }} lei</td>
+                </tr>
+                <tr>
+                    <th>Gas</th>
+                    <td>{{ function.getPrice().gas_price }} lei/m&sup3;</td>
+                    <td>{{ function.getBillingDetails(billing_number).gas_amount }} m&sup3;</td>
+                    <td>{{ function.getBillingDetails(billing_number).gas }} lei</td>
+                </tr>
+                <tr>
+                    <th>Common electricity</th>
+                    <td>{{ function.getPrice().electricity_price }} lei</td>
+                    <td>-</td>
+                    <td>{{ function.getBillingDetails(billing_number).common_electricity }} lei</td>
+                </tr>
+                <tr>
+                    <th>Sewage</th>
+                    <td>{{ function.getPrice().sewage_price }} lei</td>
+                    <td>-</td>
+                    <td>{{ function.getBillingDetails(billing_number).sewage }} lei</td>
+                </tr>
+                <tr>
+                    <th>Trash</th>
+                    <td>{{ function.getPrice().trash_price }} lei/membru</td>
+                    <td>-</td>
+                    <td>{{ function.getBillingDetails(billing_number).trash }} lei</td>
+                </tr>
+                <tr>
+                    <th>Cleaning</th>
+                    <td>{{ function.getPrice().cleaning_price }} lei</td>
+                    <td>-</td>
+                    <td>{{ function.getBillingDetails(billing_number).cleaning }} lei</td>
+                </tr>
+                <tr>
+                    <th>Pets</th>
+                    <td>{{ function.getPrice().pets_price }} lei/luna/animal</td>
+                    <td>-</td>
+                    <td>{{ function.getBillingDetails(billing_number).pets }} lei</td>
+                </tr>
+                <tr>
+                    <th>Heating</th>
+                    <td>{{ function.getPrice().heat_price }} lei/m&sup3;</td>
+                    <td>{{ function.getBillingDetails(billing_number).heat_amount }} m&sup3;</td>
+                    <td>{{ function.getBillingDetails(billing_number).heating }} lei</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-bordered">
+            <tr>
+                <td>Status</td>
+                <td>
+                    {% if function.getBillingDetails(billing_number).status == 1 %}
+                        <span class="label label-success">Paid</span>
+                    {% else %}
+                        <span class="label label-danger">Unpaid</span>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>Release date</td>
+                <td>{{ function.getBillingDetails(billing_number).created_at }}</td>
+            </tr>
+            <tr>
+                <td>Due date</td>
+                <td>{{ function.getBillingDetails(billing_number).due_date }}</td>
+            </tr>
+            <tr>
+                <td>Total payment</td>
+                <td>{{ function.getBillingDetails(billing_number).total_amount }} lei</td>
+            </tr>
+        </table>
+        {% if function.getBillingDetails(billing_number).status == 0 %}
+            <a href="{{ path_for('billingPay') }}/{{ billing_number }}" class="btn btn-success">Continue to payment</a>
+        {% endif %}
+    </div>
+</div>
+{% include 'components/footer.twig' %}

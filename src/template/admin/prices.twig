@@ -1,0 +1,59 @@
+{% include 'components/header.twig' %}
+{% include 'components/adminMenu.twig' %}
+    <div class="container">
+        <h3>Set prices</h3>
+        <div class="content">
+            {% include 'components/alerts.twig' %}
+            <form action="{{ path_for('setPrices') }}" method="post">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Price for 1m&sup3; of cold water</th>
+                        <td><input type="text" name="cold_water" class="form-control" value="{{ function.getPrice().cold_water_price }}"></td>
+                        <td>lei</td>
+                    </tr>
+                    <tr>
+                        <th>Price for 1m&sup3; of hot water</th>
+                        <td><input type="text" name="hot_water" class="form-control" value="{{ function.getPrice().hot_water_price }}"></td>
+                        <td>lei</td>
+                    </tr>
+                    <tr>
+                        <th>Price for 1m&sup3; of gas</th>
+                        <td><input type="text" name="gas" class="form-control" value="{{ function.getPrice().gas_price }}"></td>
+                        <td>lei</td>
+                    </tr>
+                    <tr>
+                        <th>Price for 1m&sup3; of heat</th>
+                        <td><input type="text" name="heat" class="form-control" value="{{ function.getPrice().heat_price }}"></td>
+                        <td>lei</td>
+                    </tr>
+                    <tr>
+                        <th>Common electricity price</th>
+                        <td><input type="text" name="electricity" class="form-control" value="{{ function.getPrice().electricity_price }}"></td>
+                        <td>lei</td>
+                    </tr>
+                    <tr>
+                        <th>Trash price per person</th>
+                        <td><input type="text" name="trash" class="form-control" value="{{ function.getPrice().trash_price }}"></td>
+                        <td>lei</td>
+                    </tr>
+                    <tr>
+                        <th>Price per pet</th>
+                        <td><input type="text" name="pets" class="form-control" value="{{ function.getPrice().pets_price }}"></td>
+                        <td>lei</td>
+                    </tr>
+                    <tr>
+                        <th>Sewage price</th>
+                        <td><input type="text" name="sewage" class="form-control" value="{{ function.getPrice().sewage_price }}"></td>
+                        <td>lei</td>
+                    </tr>
+                    <tr>
+                        <th>Cleaning price</th>
+                        <td><input type="text" name="cleaning" class="form-control" value="{{ function.getPrice().cleaning_price }}"></td>
+                        <td>lei</td>
+                    </tr>
+                </table>
+                <button type="submit" class="btn btn-success">Update</button>
+            </form>
+        </div>
+    </div>
+{% include 'components/footer.twig' %}

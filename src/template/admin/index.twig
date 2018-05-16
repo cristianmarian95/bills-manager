@@ -1,0 +1,65 @@
+{% include 'components/header.twig' %}
+{% include 'components/adminMenu.twig' %}
+<div class="container">
+    <h3>Admin Control Panel</h3>
+    <div class="content">
+        {% include 'components/alerts.twig' %}
+        <h4>Inactive users</h4>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Number</th>
+                    <th>Floor</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in function.getInactiveUsers %}
+                    <tr>
+                        <th>{{ user.username }}</th>
+                        <th>{{ user.phone }}</th>
+                        <th>{{ user.email }}</th>
+                        <th>{{ user.number }}</th>
+                        <th>{{ user.floor }}</th>
+                        <td>
+                            <a href="{{ path_for('activeUser') }}/{{ user.id }}" class="btn btn-success">Active</a>
+                            <a href="{{ path_for('getUser') }}/{{ user.id }}" class="btn btn-primary">Info</a>
+                            <a href="{{ path_for('deleteUser') }}/{{ user.id }}" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <h4>Unpaid Bills</h4>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Number</th>
+                    <th>Amount</th>
+                    <th>Due date</th>
+                    <th>Username</th>
+                    <th>Phone</th>
+                    <th>Floor</th>
+                    <th>Number</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for bill in function.getUnpaidBills %}
+                    <tr>
+                        <td>{{ bill.number }}</td>
+                        <td>{{ bill.total_amount }}</td>
+                        <td>{{ bill.due_date }}</td>
+                        <td><a href="{{ path_for('getUser') }}/{{ function.getUserInfo(bill.user_id).id }}">{{ function.getUserInfo(bill.user_id).username }}</a> </td>
+                        <td>{{ function.getUserInfo(bill.user_id).phone }}</td>
+                        <td>{{ function.getUserInfo(bill.user_id).floor }}</td>
+                        <td>{{ function.getUserInfo(bill.user_id).number }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% include 'components/footer.twig' %}

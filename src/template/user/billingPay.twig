@@ -1,0 +1,88 @@
+{% include 'components/header.twig' %}
+{% include 'components/menu.twig' %}
+<div class="container">
+    <h3>Payment method</h3>
+    <div class="content">
+        <div class="row">
+            <div class="col-md-5">
+                <h4>Credit card</h4>
+                {% include 'components/alerts.twig' %}
+                <form method="post" action="{{ path_for('makePayment') }}">
+                    <div class="form-group">
+                        <label for="card_number">Card number</label>
+                        <input type="text" name="card_number" class="form-control" placeholder="Introduceti numarul cardului">
+                    </div>
+                    <div class="form-group">
+                        <label for="card_number">Expire date</label>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <input type="text" name="year" class="form-control" placeholder="An">
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="text" name="month" class="form-control" placeholder="Luna">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="card_number">CVV</label>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <input type="text" name="cvv" class="form-control" placeholder="CVV">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#payment">Continue to pay</button>
+                    </div>
+                    <div class="modal fade" id="payment" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title">Confirm payment</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p>By clicking the "Pay now" button you agree with the transaction of <font color="red"><b>{{  function.getBillingDetails(billing_number).total_amount }} lei</b></font> </p>
+                                    <input type="hidden" name="billing_number" value="{{ billing_number }}">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-success">Pay now</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-7">
+                <h4>Billing details</h4>
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Number</th>
+                        <td>{{ billing_number }}</td>
+                    </tr>
+                    <tr>
+                        <th>Release date</th>
+                        <td>{{ function.getBillingDetails(billing_number).created_at }}</td>
+                    </tr>
+                    <tr>
+                        <th>Due date</th>
+                        <td>{{ function.getBillingDetails(billing_number).due_date }}</td>
+                    </tr>
+                    <tr>
+                        <th>Payment</th>
+                        <td>{{ function.getBillingDetails(billing_number).total_amount - ( function.getBillingDetails(billing_number).total_amount * ( 19 / 100 ) ) }} lei (No TVA)</td>
+                    </tr>
+                    <tr>
+                        <th>TVA</th>
+                        <td>{{ function.getBillingDetails(billing_number).total_amount * ( 19 / 100 ) }} lei</td>
+                    </tr>
+                    <tr>
+                        <th>Final payment</th>
+                        <td>{{ function.getBillingDetails(billing_number).total_amount }} lei</td>
+                    </tr>
+                </table>
+                <a href="{{ path_for('billingDetails') }}/{{ billing_number }}" class="btn btn-primary">Details</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'components/footer.twig' %}

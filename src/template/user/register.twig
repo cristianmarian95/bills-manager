@@ -1,0 +1,97 @@
+{% include 'components/header.twig' %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 box">
+            {% include 'components/alerts.twig' %}
+            <form action="{{ path_for('actionRegister') }}" method="post">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4>Account information</h4>
+                        <div class="form-group">
+                            <label id="username">Username</label>
+                            <input type="text" class="form-control" name="username" id="username" placeholder="Introduceti un nume de utilizator">
+                        </div>
+                        <div class="form-group">
+                            <label id="email">Email</label>
+                            <input type="email" class="form-control" name="email" id="email" placeholder="Introduceti o adresa de email valida">
+                        </div>
+                        <div class="form-group">
+                            <label id="password">Password</label>
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Introduceti o pralola">
+                        </div>
+                        <div class="form-group">
+                            <label id="conf_password">Confirm password</label>
+                            <input type="password" class="form-control" name="conf_password" id="conf_password" placeholder="Confirmati parola">
+                        </div>
+                        <div class="form-group">
+                            <label id="name">Name</label>
+                            <input type="text" class="form-control" name="name" id="name" placeholder="Introduceti numele dumneavoastra">
+                        </div>
+                        <div class="form-group">
+                            <label id="last_name">Last name</label>
+                            <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Introduceti prenumele dumneavoastra">
+                        </div>
+                        <div class="form-group">
+                            <label id="phone">Phone</label>
+                            <input type="text" class="form-control" name="phone" id="phone" placeholder="Introduceti numarul de telefon">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>General information</h4>
+                        <div class="form-group">
+                            <label id="floor">Floor</label>
+                            <select name="floor" class="form-control">
+                                <option value="ground" selected>ground</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label id="number">Number</label>
+                            <input type="text" class="form-control" name="number" id="number" placeholder="Numarul apartamentului (Exemplu: 1)">
+                        </div>
+                        <div class="form-group">
+                            <label id="number_of_persons">Number of persons</label>
+                            <select name="number_of_persons" class="form-control">
+                                <option value="1" selected>1 person</option>
+                                <option value="2">2 persons</option>
+                                <option value="3">3 persons</option>
+                                <option value="4">4 persons</option>
+                                <option value="5">5 persons</option>
+                                <option value="6">6 persons</option>
+                                <option value="7">7 persons</option>
+                                <option value="8">8 persons</option>
+                                <option value="9">9 persons</option>
+                                <option value="10">10 persons</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label id="number_of_pets">Number of pets</label>
+                            <select name="number_of_pets" class="form-control">
+                                <option value="no" selected>no pets</option>
+                                <option value="1">1 pet</option>
+                                <option value="2">2 pets</option>
+                                <option value="3">3 pets</option>
+                                <option value="4">4 pets</option>
+                                <option value="5">5 pets</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" name="submit" class="btn btn-success">Register</button>
+                            <a href="{{ path_for('login') }}" class="btn btn-warning">Have an account?</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% include 'components/footer.twig' %}

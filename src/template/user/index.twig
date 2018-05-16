@@ -1,0 +1,46 @@
+{% include 'components/header.twig' %}
+{% include 'components/menu.twig' %}
+<div class="container">
+   <h3>My billings</h3>
+
+   <div class="content">
+      <table class="table table-bordered">
+         <thead>
+            <tr>
+               <th>Number</th>
+               <th>Release date</th>
+               <th>Due date</th>
+               <th>Total</th>
+               <th>Status</th>
+               <th>Actions</th>
+            </tr>
+         </thead>
+         <tbody>
+            {% for billing in function.getUserBillings(session.get('uid')) %}
+                <tr>
+                   <td>{{ billing.number }}</td>
+                   <td>{{ billing.created_at }}</td>
+                   <td>{{ billing.due_date }}</td>
+                   <td>{{ billing.total_amount }} lei</td>
+                   <td>
+                      {% if billing.status == 0 %}
+                         <span class="label label-danger">Unpaid</span>
+                      {% elseif billing.status == 1 %}
+                         <span class="label label-success">Paid</span>
+                      {% endif %}
+                   </td>
+                   <td>
+                      <div class="form-inline">
+                         {% if billing.status == 0 %}
+                            <a href="{{ path_for('billingPay') }}/{{ billing.number }}" class="btn btn-warning">Pay</a>
+                         {% endif %}
+                         <a href="{{ path_for('billingDetails') }}/{{ billing.number }}" class="btn btn-primary">Details</a>
+                      </div>
+                   </td>
+                </tr>
+            {% endfor  %}
+         </tbody>
+      </table>
+   </div>
+</div>
+{% include 'components/footer.twig' %}

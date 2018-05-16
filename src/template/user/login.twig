@@ -1,0 +1,26 @@
+{% include 'components/header.twig' %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3 box">
+            {% include 'components/alerts.twig' %}
+            <form action="{{ path_for('actionLogin') }}" method="post">
+                <div class="form-group">
+                    <label id="username">Username</label>
+                    <input type="text" class="form-control" name="username" id="username" placeholder="Introduceti numele de utilizator">
+                </div>
+                <div class="form-group">
+                    <label id="password">Password</label>
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Introduceti parola">
+                </div>
+                <div class="form-inline">
+                    <div class="form-group">
+                        <button type="submit" name="submit" class="btn btn-default">Login</button>
+                        <a href="{{ path_for('register') }}" class="btn btn-primary">Register</a>
+                        <a href="{{ path_for('recover') }}" class="btn btn-warning">Forgot password?</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% include 'components/footer.twig' %}

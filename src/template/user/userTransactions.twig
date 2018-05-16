@@ -1,0 +1,30 @@
+{% include 'components/header.twig' %}
+{% include 'components/menu.twig' %}
+<div class="container">
+    <h3>My tranzactions</h3>
+    <div class="content">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Billing</th>
+                    <th>Transaction</th>
+                    <th>Payment Method</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transaction in function.myTransactions(session.get('uid')) %}
+                <tr>
+                    <td><a href="{{ path_for('billingDetails') }}/{{ transaction.billing_number }}">{{ transaction.billing_number }}</a> </td>
+                    <td>{{ transaction.transaction_mid }}</td>
+                    <td>{{ transaction.card_number }}</td>
+                    <td>{{ transaction.created_at }}</td>
+                    <td>{{ transaction.total_pay }} lei</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% include 'components/footer.twig' %}

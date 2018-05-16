@@ -1,0 +1,98 @@
+{% include 'components/header.twig' %}
+{% include 'components/adminMenu.twig' %}
+<div class="container">
+    <h3>{{ function.getUserInfo(user_id).username }} profile</h3>
+    <div class="content">
+        <h4>General Information</h4>
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <th>Username</th>
+                <td>{{ function.getUserInfo(user_id).username }}</td>
+                <th>Email</th>
+                <td>{{ function.getUserInfo(user_id).email }}</td>
+                <th>Access</th>
+                <td>
+                    {% if function.getUserInfo(user_id).access == 1 %}
+                        <span class="label label-danger">Administrator</span>
+                    {% else %}
+                        <span class="label label-info">User</span>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ function.getUserInfo(user_id).name }}</td>
+                <th>Last name</th>
+                <td>{{ function.getUserInfo(user_id).last_name }}</td>
+                <th>Phone</th>
+                <td>{{ function.getUserInfo(user_id).phone }}</td>
+            </tr>
+            <tr>
+                <th>Floor</th>
+                <td>{{ function.getUserInfo(user_id).floor }}</td>
+                <th>Number</th>
+                <td>{{ function.getUserInfo(user_id).number }}</td>
+                <th>Status</th>
+                <td>
+                    {% if function.getUserInfo(user_id).status == 1 %}
+                        <span class="label label-success">Active</span>
+                    {% else %}
+                        <span class="label label-danger">Inactive</span>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Number of persons</th>
+                <td>{{ function.getUserInfo(user_id).number_of_persons }}</td>
+                <th>Number of pets</th>
+                <td>{{ function.getUserInfo(user_id).number_of_pets }}</td>
+            </tr>
+            </tbody>
+        </table>
+        {% if function.getUserInfo(user_id).access != 1 %}
+            <a href="{{ path_for('deleteUser') }}/{{ function.getUserInfo(user_id).id }}" class="btn btn-danger">Delete</a>
+            <a href="{{ path_for('setAdmin') }}/{{ function.getUserInfo(user_id).id }}" class="btn btn-warning">Promote</a>
+        {% endif %}
+        {% if function.getUserInfo(user_id).status == 0 %}
+            <a href="{{ path_for('activeUser') }}/{{ function.getUserInfo(user_id).id }}" class="btn btn-success">Active</a>
+        {% endif %}
+        {% if function.getUserInfo(user_id).access == 1 %}
+            {% if function.getUserInfo(user_id).username != 'admin' %}
+                <a href="{{ path_for('delAdmin') }}/{{ function.getUserInfo(user_id).id }}" class="btn btn-warning">Downgrade</a>
+            {% endif %}
+        {% endif %}
+        <h4>User Bills</h4>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Number</th>
+                    <th>Transaction ID</th>
+                    <th>Amount</th>
+                    <th>Due date</th>
+                    <th>Release date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for bill in function.getUserBillings(user_id) %}
+                    <tr>
+                        <td>{{ bill.number }}</td>
+                        <td>{{ function.getTransaction(bill.number).transaction_mid }}</td>
+                        <td>{{ bill.total_amount }} lei</td>
+                        <td>{{ bill.due_date }}</td>
+                        <td>{{ bill.created_at }}</td>
+                        <td>
+                            {% if bill.status == 1 %}
+                                <span class="label label-success">Paid</span>
+                            {% else %}
+                                <span class="label label-danger">Unpaid</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% include 'components/footer.twig' %}

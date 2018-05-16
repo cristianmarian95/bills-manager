@@ -1,0 +1,64 @@
+{% include 'components/header.twig' %}
+{% include 'components/menu.twig' %}
+<div class="container">
+    <h3>Read utilities</h3>
+    <div class="content">
+        <div class="row">
+            <div class="col-md-5">
+                <h4>Utilities</h4>
+                {% include 'components/alerts.twig' %}
+                <form method="post" action="{{ path_for('makeRead') }}">
+                    <div class="form-group">
+                        <label for="cold_water">Cold water</label>
+                        <input type="text" name="cold_water" class="form-control" id="cold_water" placeholder="ex: 1234567890" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="hot_water">Hot water</label>
+                        <input type="text" name="hot_water" class="form-control" id="hot_water" placeholder="ex: 1234567890" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="gas">Gas</label>
+                        <input type="text" name="gas" class="form-control" id="gas" placeholder="ex: 1234567890" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="heat">Heat</label>
+                        <input type="text" name="heat" class="form-control" id="heat" placeholder="ex: 1234567890" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-default">Confirm</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-7">
+                <h4>Last read</h4>
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Cold water</th>
+                        <td>{{ function.getMyLastRead(session.get('uid')).cold_water_new }}</td>
+                    </tr>
+                    <tr>
+                        <th>Hot water</th>
+                        <td>{{ function.getMyLastRead(session.get('uid')).hot_water_new }}</td>
+                    </tr>
+                    <tr>
+                        <th>Gas</th>
+                        <td>{{ function.getMyLastRead(session.get('uid')).gas_new }}</td>
+                    </tr>
+                    <tr>
+                        <th>Heat</th>
+                        <td>{{ function.getMyLastRead(session.get('uid')).heat_new }}</td>
+                    </tr>
+                    <tr>
+                        <th>Read on</th>
+                        <td>{{ function.getMyLastRead(session.get('uid')).created_at }}</td>
+                    </tr>
+                    <tr>
+                        <th>Next reading date</th>
+                        <td>{{ function.getMyLastRead(session.get('uid')).new_reading_data }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'components/footer.twig' %}

@@ -1,0 +1,22 @@
+<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mobile" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ path_for('adminIndex') }}">Bill Manager</a>
+        </div>
+        <div class="collapse navbar-collapse" id="mobile">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="{{ path_for('adminIndex') }}"><i class="fas fa-home"></i> Dashboard</a></li>
+                <li><a href="{{ path_for('getUsers') }}"><i class="fas fa-users"></i></i> Users</a></li>
+                <li><a href="{{ path_for('getPrices') }}"><i class="fas fa-cogs"></i></i> Price </a></li>
+                <li><a href="{{ path_for('index') }}"><i class="fas fa-user"></i> UCP</a> </li>
+                <li><a href="{{ path_for('logout') }}"><i class="fas fa-power-off"></i> Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>

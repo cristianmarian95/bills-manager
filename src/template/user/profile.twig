@@ -1,0 +1,107 @@
+{% include 'components/header.twig' %}
+{% include 'components/menu.twig' %}
+<div class="container">
+    <h3>My Profile</h3>
+    <div class="content">
+        {% include 'components/alerts.twig' %}
+        <h4>General Information</h4>
+        <form action="{{ path_for('changeProfile') }}" method="post">
+            <table class="table table-bordered">
+                <tr>
+                    <td>Name</td>
+                    <td>{{ function.getUserInfo(session.get('uid')).name }}</td>
+                </tr>
+                <tr>
+                    <td>Last Name</td>
+                    <td>{{ function.getUserInfo(session.get('uid')).last_name }}</td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td><input type="email" name="email" value="{{ function.getUserInfo(session.get('uid')).email }}" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td>Phone</td>
+                    <td><input type="text" name="phone" value="{{ function.getUserInfo(session.get('uid')).phone }}" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td>Floor</td>
+                    <td>
+                        <select name="floor" class="form-control">
+                            <option value="{{ function.getUserInfo(session.get('uid')).floor }}" selected>{{ function.getUserInfo(session.get('uid')).floor }}</option>
+                            <option value="" disabled>---------------</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Number</td>
+                    <td><input type="text" name="number" value="{{ function.getUserInfo(session.get('uid')).number }}" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td>Number of persons</td>
+                    <td>
+                        <select name="number_of_persons" class="form-control">
+                            <option value="{{ function.getUserInfo(session.get('uid')).number_of_persons }}" selected>{{ function.getUserInfo(session.get('uid')).number_of_persons }} person</option>
+                            <option value="" disabled>---------------</option>
+                            <option value="1">1 person</option>
+                            <option value="2">2 persons</option>
+                            <option value="3">3 persons</option>
+                            <option value="4">4 persons</option>
+                            <option value="5">5 persons</option>
+                            <option value="6">6 persons</option>
+                            <option value="7">7 persons</option>
+                            <option value="8">8 persons</option>
+                            <option value="9">9 persons</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Number of pets</td>
+                    <td>
+                        <select name="number_of_pets" class="form-control">
+                            <option value="{{ function.getUserInfo(session.get('uid')).number_of_pets }}" selected>{{ function.getUserInfo(session.get('uid')).number_of_pets }} pets</option>
+                            <option value="" disabled>---------------</option>
+                            <option value="no">no pets</option>
+                            <option value="1">1 pets</option>
+                            <option value="2">2 pets</option>
+                            <option value="3">3 pets</option>
+                            <option value="4">4 pets</option>
+                            <option value="5">5 pets</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Update profile</button>
+            </div>
+        </form>
+        <h4>Change password</h4>
+        <form action="{{ path_for('changeProfilePassword') }}" method="post">
+            <table class="table table-bordered">
+                <tr>
+                    <td>Old password</td>
+                    <td><input type="password" class="form-control" name="old_password"></td>
+                </tr>
+                <tr>
+                    <td>New password</td>
+                    <td><input type="password" class="form-control" name="new_password"></td>
+                </tr>
+                <tr>
+                    <td>Confirm password</td>
+                    <td><input type="password" class="form-control" name="conf_password"></td>
+                </tr>
+            </table>
+            <button type="submit" class="btn btn-primary">Change password</button>
+        </form>
+    </div>
+</div>
+{% include 'components/footer.twig' %}

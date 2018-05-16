@@ -1,0 +1,17 @@
+body{
+    background-color: #efefef;
+}
+.box {
+    background-color: #FFFFFF;
+    padding: 20px;
+    margin-top: 15%;
+    border-radius: 5px;
+}
+.glyphicon-small {
+    font-size: 12px;
+}
+.content {
+    background-color: #FFFFFF;
+    width: 100%;
+    padding: 20px;
+}
